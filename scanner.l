@@ -18,9 +18,8 @@ asignacion                          <-
 inicio-fin                          programa | fin-programa
 funcion                             leer | escribir | declarar
 comentario                          ##.*$
-identificadorinvalido               .{-}[{letra}{digito}[:space:]]
-constanteInvalida                   .{-}[{digito}[:space:]]
-cadenaDesconocida                   .{-}[:space:]
+constanteInvalida                   [[:^digit:]]{-}[[:space:]]
+cadenaDesconocida                   [[:^alnum:]]{-}[[:space:]]
 
 %%
 
@@ -29,9 +28,9 @@ cadenaDesconocida                   .{-}[:space:]
 {operador}                                                  |
 {puntuacion}                                                return CARACTER_VALIDO;
 {constante}                                                 return CONSTANTE;
-{constante}{constanteInvalida}+{digito}?	                return CONSTANTE_INVALIDA;
+{constante}{constanteInvalida}+{digito}?	                  return CONSTANTE_INVALIDA;
 {identificador}	                                            return IDENTIFICADOR;
-{identificador}{Identificadorinvalido}+{identificador}?     return IDENTIFICADOR_INVALIDO;
-{asignacion}	                                            return ASIGNACION;
+{identificador}{cadenaDesconocida}+{identificador}?         return IDENTIFICADOR_INVALIDO;
+{asignacion}	                                              return ASIGNACION;
 {comentario}                                                //los elimina
-{cadenaDesconocida}+		                                return CADENA_DESCONOCIDA;
+{cadenaDesconocida}+		                                    return CADENA_DESCONOCIDA;
