@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "scanner.h"
 #include "tokens.h"
 
 //char *token_names[] = {"", "Identificador\t\t", "Constante\t\t", "Asignación", "identificador inválido: ", "constante inválida: ", "cadena desconocida: ","Fin de archivo"};
