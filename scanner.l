@@ -21,6 +21,7 @@ comentario                          ##.*$
 identificadorinvalido               .{-}[{letra}{digito}[:space:]]
 constanteInvalida                   .{-}[{digito}[:space:]]
 cadenaDesconocida                   .{-}[:space:]
+
 %%
 
 {inicio-fin}                                                |

@@ -17,7 +17,7 @@
 //char *token_names[] = {"", "Identificador\t\t", "Constante\t\t", "Asignación", "identificador inválido: ", "constante inválida: ", "cadena desconocida: ","Fin de archivo"};
 int main() {
 
-	enum token t;
+	TOKEN t;
 
 	while ((t = yylex()) != FDT){
 		switch(t){
