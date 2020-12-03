@@ -7,7 +7,7 @@
       Alejandro Buergo / 168.569-7
       Ignacio Ferrante / 171.524-0
       Patricio Galli   / 172.467-8
-                                                                                          */
+                                                                                    */
 //////////////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -23,28 +23,28 @@ int main() {
 	while ((t = yylex()) != FDT){
 		switch(t){
 			case CARACTER_VALIDO:
-						printf("Token: '%c'", yytext[0]);
+						printf("Token: '%c'\n", yytext[0]);
 						break;
 			case PALABRA_RESERVADA:
-						printf("Token: %s", toupper(yytext));
+						printf("Token: palabra reservada %s\n", yytext);
 						break;
 			case ASIGNACION:
-						printf("Token: Asignación");
+						printf("Token: Asignación\n");
 						break;
 			case IDENTIFICADOR:
-						printf("Token: Identificador\t\t%slexema: %s\n", yytext);
+						printf("Token: Identificador\t\tlexema: %s\n", yytext);
 						break;
 			case CONSTANTE:
-						printf("Token: Constante\t\t%slexema: %s\n", yytext);
+						printf("Token: Constante\t\tlexema: %s\n", yytext);
 						break;
 			case IDENTIFICADOR_INVALIDO:
-						printf("Error léxico: identificador inválido: %s", yytext);
+						printf("Error léxico: identificador inválido: %s\n", yytext);
 						break;
 			case CONSTANTE_INVALIDA:
-						printf("Error léxico: constante inválida: %s", yytext);
+						printf("Error léxico: constante inválida: %s\n", yytext);
 						break;
 			case CADENA_DESCONOCIDA:
-						printf("Error léxico: cadena desconocida: %s", yytext);
+						printf("Error léxico: cadena desconocida: %s\n", yytext);
 						break;
 			default:
 						printf("Fin de archivo");

@@ -9,28 +9,30 @@
 %option nounput
 
 operador            [*/+-]
-puntuacion          ["("")".,;]
+puntuacion          [\(\),;]
 digito              [0-9]
 letra               [[:alpha:]]
 letraDigito         [[:alnum:]]
 identificador       {letra}{letraDigito}*
 asignacion          <-
-inicioFin           [(programa)(fin-programa)]
-funcion             [(leer)(escribir)(declarar)]
+inicioFin           programa|fin-prog
+funcion             leer|escribir|declarar
 comentario          ##.*$
-constanteInvalida   [[:^digit:]]{-}[[:space:]]
-cadenaDesconocida   [[:^alnum:]]{-}[[:space:]]
+digitoInvalido      [[:^digit:]]{-}[[:space:]]]
+charDesconocido     [[:^alnum:]]{-}[[:space:]]{-}[[{puntuacion}{comentario}{operador}]]
 
 %%
 
-{inicioFin}                                                 |
-{funcion}                                                   return PALABRA_RESERVADA;
-{operador}                                                  |
-{puntuacion}                                                return CARACTER_VALIDO;
-{digito}*                                                   return CONSTANTE;
-{constante}{constanteInvalida}+{digito}?	                return CONSTANTE_INVALIDA;
-{identificador}	                                            return IDENTIFICADOR;
-{identificador}{cadenaDesconocida}+{identificador}?         return IDENTIFICADOR_INVALIDO;
-{asignacion}	                                            return ASIGNACION;
-{comentario}                                                //los elimina
-{cadenaDesconocida}+		                                return CADENA_DESCONOCIDA;
+[[:space:]]						;
+{inicioFin}                                           	|
+{funcion}                                             	return PALABRA_RESERVADA;
+{operador}                                            	|
+{puntuacion}                                          	return CARACTER_VALIDO;
+{digito}+                                             	return CONSTANTE;
+{digito}+{digitoInvalido}+{digito}*	        	return CONSTANTE_INVALIDA;
+{identificador}	                        	return IDENTIFICADOR;
+{comentario}                                       	//los elimina
+{identificador}{charDesconocido}+({letra}|{digito})*    return IDENTIFICADOR_INVALIDO;
+{asignacion}	                                    	return ASIGNACION;
+{charDesconocido}+		                     	return CADENA_DESCONOCIDA;
+
