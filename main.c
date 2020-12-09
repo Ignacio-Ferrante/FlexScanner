@@ -47,8 +47,7 @@ int main() {
 						printf("Error léxico: cadena desconocida: %s\n", yytext);
 						break;
 			default:
-						printf("Fin de archivo");
 						return 0;
 		}
-	}
+	} 		printf("Token: Fin de archivo \n"); // Esta re mal esto jaja, mañana lo reviso bien. Esto es para que a lo ultimo aparezca el fin de archivo
 }
