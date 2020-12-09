@@ -19,7 +19,7 @@ inicioFin           programa|fin-prog
 funcion             leer|escribir|declarar
 comentario          ##.*$
 digitoInvalido      [[:^digit:]]{-}[[:space:]]]
-charDesconocido                         [[:punct:]]{-}[{().,+\-*/;}{comentario}]
+charDesconocido     [[:punct:]]{-}[{().,+\-*/;}{comentario}]
 %%
 
 [[:space:]]						                        ;
@@ -30,10 +30,10 @@ charDesconocido                         [[:punct:]]{-}[{().,+\-*/;}{comentario}]
 {digito}+                                             	return CONSTANTE;
 {identificador}	                                    	return IDENTIFICADOR;
 {comentario}                                       	    //los elimina
-{asignacion}	                                                return ASIGNACION;
+{asignacion}	                                        return ASIGNACION;
 {identificador}+{charDesconocido}{letraDigito}+{charDesconocido}                return IDENTIFICADOR_INVALIDO;
-{digito}{identificador}*                                     return CONSTANTE_INVALIDA;
-{charDesconocido}+                                                 return CADENA_DESCONOCIDA;
+{digito}{identificador}*                                return CONSTANTE_INVALIDA;
+{charDesconocido}+                                      return CADENA_DESCONOCIDA;
 %%
 
 
