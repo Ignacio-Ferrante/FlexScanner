@@ -8,32 +8,38 @@
 %option noinput
 %option nounput
 
-operador            [+\-*]
-puntuacion          [().,;/]
 digito              [0-9]
 letra               [[:alpha:]]
 letraDigito         [[:alnum:]]
 identificador       {letra}{letraDigito}*
 asignacion          <-
-inicioFin           programa|fin-prog
-funcion             leer|escribir|declarar
 comentario          ##.*$
 digitoInvalido      [[:^digit:]]{-}[[:space:]]]
-charDesconocido     [[:punct:]]{-}[().,+\-*;/]
+charDesconocido     [[:punct:]]{-}[{().,+\-*/;}{comentario}]
 %%
 
-[[:space:]]						                                    ;
-{inicioFin}                                           	            |
-{funcion}                                             	            return PALABRA_RESERVADA;
-{operador}                                            	            |
-{puntuacion}                                          	            return CARACTER_VALIDO;
-{digito}+                                             	            return CONSTANTE;
-{identificador}	                                    	            return IDENTIFICADOR;
-{comentario}                                       	                //los elimina
-{asignacion}	                                        		    return ASIGNACION;
-{identificador}{charDesconocido}({letraDigito}|{charDesconocido})*  return IDENTIFICADOR_INVALIDO;
-{digito}{identificador}*                                            return CONSTANTE_INVALIDA;
-{charDesconocido}+                                                  return CADENA_DESCONOCIDA;
+[[:space:]]						                        ;
+programa                                                return PROGRAMA;
+fin-prog                                                return FIN_PROG;
+leer                                                    return LEER;
+escribir                                                return ESCRIBIR;
+declarar                                                return DECLARAR;
+"("							                            return '(';
+")"							                            return ')';
+";"                                                     return ';';
+"."							                            return '.';
+","							                            return ',';
+"+"							                            return '+';
+"-"							                            return '-';
+"*"							                            return '*';
+"/"							                            return '/';
+{digito}+                                             	return CONSTANTE;
+{identificador}	                                    	return IDENTIFICADOR;
+{comentario}                                       	    //los elimina
+{asignacion}	                                        		return ASIGNACION;
+{identificador}{charDesconocido}({letraDigito}|{charDesconocido})*   printf("Error léxico: identificador inválido: %s\n",yytext);
+{digito}{identificador}*                                printf("Error léxico: constante inválida : %s\n",yytext);
+{charDesconocido}+                                      printf("Error léxico: cadena desconocida : %s\n",yytext);
 %%
 
 
